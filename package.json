@@ -1,0 +1,32 @@
+{
+  "name": "freecodecamp-voting-app",
+  "version": "1.0.0",
+  "description": "Freecodecamp Voting App",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DawChihLiou/freecodecamp-voting-app.git"
+  },
+  "keywords": [
+    "Freecodecamp",
+    "Express",
+    "Redux",
+    "React"
+  ],
+  "author": "Daw-Chih Liou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DawChihLiou/freecodecamp-voting-app/issues"
+  },
+  "homepage": "https://github.com/DawChihLiou/freecodecamp-voting-app#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
