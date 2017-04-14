@@ -1,2 +1,2 @@
 # freecodecamp-voting-app
-Free Co
+Free Code Camp Voting App
