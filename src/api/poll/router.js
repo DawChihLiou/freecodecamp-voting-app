@@ -6,7 +6,7 @@ const router = express.Router()
 /**
  * List all/my polls
  */ 
-router.get('/poll/list/:show', (req, res) => {
+router.get('/list/:show', (req, res) => {
     
     
     // TODO: user id
@@ -21,7 +21,7 @@ router.get('/poll/list/:show', (req, res) => {
 /**
  * Get poll detail
  */ 
-router.get('/poll/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     poll.find(req.params.id, (result, db) =>{
         res.send(result)
         db.close()
@@ -31,7 +31,7 @@ router.get('/poll/:id', (req, res) => {
 /**
  * Create new poll
  */
-router.post('/poll/new', (req, res) => {
+router.post('/new', (req, res) => {
     // TODO: create poll with user input data
     const dummy = {
         creater: 'fjlk213512l3k5jqefqe2134', 
@@ -50,7 +50,7 @@ router.post('/poll/new', (req, res) => {
 /**
  * Delete poll with id
  */
-router.delete('/poll/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     poll.delete(req.params.id, (result, db) => {
         res.send(result)
         db.close()
@@ -60,7 +60,7 @@ router.delete('/poll/:id', (req, res) => {
 /**
  * Vote in poll
  */
-router.post('/poll/vote', (req, res) => {
+router.post('/vote', (req, res) => {
     // TODO: get user input data
     const dummy = {
         id: '58f1c6448227c11d51ad27ba',
