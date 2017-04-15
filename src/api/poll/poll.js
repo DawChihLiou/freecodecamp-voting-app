@@ -1,9 +1,9 @@
 const mongodb = require('mongodb')
-const mlab = require('../../db/mlab')
+const mlab = require('../../db/')
 
 const mongo = mongodb.MongoClient
 
-const MLAB_URL = process.env.MLAB_URL
+const MONGO_URL = process.env.MONGO_URL
 const db = undefined
 
 const poll = {}
@@ -12,9 +12,11 @@ const poll = {}
  * List all polls or polls created by given user
  */
 poll.list = (show, userId, cb) => {
-    const query = show === 'all' ? {} : {creater: userId}
+    const query = {deleted: false}
     
-    mlab.connect(mongo, MLAB_URL, db => {
+    if (show === 'mine') query.creater = userId
+    
+    mlab.connect(mongo, MONGO_URL, db => {
         db.collection('polls').find(query).toArray((err, result) => {
             if (err) console.error(`Unable to fetch polls. ${err}`)
             cb(result, db)
@@ -25,10 +27,12 @@ poll.list = (show, userId, cb) => {
 /**
  * Find poll by given poll id
  */
-poll.find = (id, cb) => {
-    mlab.connect(mongo, MLAB_URL, db => {
-        db.collection('polls').findOne({_id: new mongodb.ObjectID(id)}, (err, result) => {
-            if (err) console.error(`Unable ot fetch poll ${id}. ${err}`)
+poll.find = (pollId, cb) => {
+    const pollOid = new mongodb.ObjectID(pollId)
+    
+    mlab.connect(mongo, MONGO_URL, db => {
+        db.collection('polls').findOne({_id: pollOid}, (err, result) => {
+            if (err) console.error(`Unable ot fetch poll ${pollId}. ${err}`)
             cb(result, db)
         })
     })
@@ -38,9 +42,25 @@ poll.find = (id, cb) => {
  * Create poll
  */ 
 poll.create = (data, cb) => {
-    mlab.connect(mongo, MLAB_URL, db => {
+    mlab.connect(mongo, MONGO_URL, db => {
         db.collection('polls').save(data, (err, result) => {
             if (err) console.error(`Unable to create poll. ${err}`)
+            cb(result, db)
+        })
+    })
+}
+
+/**
+ * Soft Delete poll 
+ */
+poll.delete = (pollId, cb) => {
+    const pollOid = new mongodb.ObjectID(pollId)
+    
+    mlab.connect(mongo, MONGO_URL, db => {
+        db.collection('polls').findOneAndUpdate(
+            {_id: pollOid}, {$set:{deleted: true}}, (err, result) => {
+            if (err) console.error(`Unable to delete poll ${pollId}. ${err}`)
+            
             cb(result, db)
         })
     })

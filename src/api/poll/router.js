@@ -43,6 +43,10 @@ router.post('/poll/new', (req, res) => {
 
 router.delete('/poll/:id', (req, res) => {
     // delete poll with id
+    poll.delete(req.params.id, (result, db) => {
+        res.send(result)
+        db.close()
+    })
 })
 
 router.post('/poll/vote', (req, res) => {
