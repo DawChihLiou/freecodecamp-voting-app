@@ -1,14 +1,20 @@
-const express = require('express');
+const express = require('express')
+const mongodb = require('mongodb')
 
-const app = express();
-const port = process.env.PORT || 8080;
+const index = require('./src/index/router')
+const api = require('./src/api/router')
 
-app.use(express.static(`${__dirname}/dist`));
+const app = express()
+const mongo = mongodb.MongoClient
 
-app.get('/', (req, res) => {
-    res.render('index.html');
-});
+const PORT = process.env.PORT || 8080
+const MLAB_URL = process.env.MLAB_URL
 
-app.listen(port, () => {
-    console.log(`Server is listening to port ${port}`);
-});
+app.use(express.static(`${__dirname}/dist`))
+
+api.use('/', index)
+app.use('/api', api)
+
+app.listen(PORT, () => {
+    console.log(`Server is listening to port ${PORT}`)
+})
