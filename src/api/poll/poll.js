@@ -4,7 +4,6 @@ const mlab = require('../../db/')
 const mongo = mongodb.MongoClient
 
 const MONGO_URL = process.env.MONGO_URL
-const db = undefined
 
 const poll = {}
 
