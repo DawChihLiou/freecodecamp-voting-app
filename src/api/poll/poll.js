@@ -57,11 +57,29 @@ poll.delete = (pollId, cb) => {
     const pollOid = new mongodb.ObjectID(pollId)
     
     mlab.connect(mongo, MONGO_URL, db => {
-        db.collection('polls').findOneAndUpdate(
-            {_id: pollOid}, {$set:{deleted: true}}, (err, result) => {
-            if (err) console.error(`Unable to delete poll ${pollId}. ${err}`)
-            
-            cb(result, db)
+        db.collection('polls').update(
+            {_id: pollOid}, 
+            {$set: {deleted: true}}, 
+            (err, result) => {
+                if (err) console.error(`Unable to delete poll ${pollId}. ${err}`)
+                cb(result, db)
+        })
+    })
+}
+
+/**
+ * Vote given poll
+ */
+poll.vote = (pollId, option, cb) => {
+    const pollOid = new mongodb.ObjectID(pollId)
+    
+    mlab.connect(mongo, MONGO_URL, db => {
+        db.collection('polls').update(
+            {_id: pollOid, "options.name": option}, 
+            {$inc: {"options.$.votes": 1}}, 
+            (err, result) => {
+                if (err) console.error(`Unable to delete poll ${pollId}. ${err}`)
+                cb(result, db)
         })
     })
 }

@@ -31,7 +31,7 @@ router.post('/poll/new', (req, res) => {
         creater: 'fjlk213512l3k5jqefqe2134', 
         date: (new Date()).getTime(),
         name: 'which uper hero you like more',
-        options: [{option: 'Deadpool', votes: 0}, {option: 'Ant-Man', votes: 0}],
+        options: [{name: 'Deadpool', votes: 0}, {name: 'Ant-Man', votes: 0}],
         deleted: false
     }
     
@@ -51,6 +51,18 @@ router.delete('/poll/:id', (req, res) => {
 
 router.post('/poll/vote', (req, res) => {
     // vote in poll
+    
+    // TODO: get user input data
+    const dummy = {
+        id: '58f1c6448227c11d51ad27ba',
+        option: 'Coldplay'
+    }
+    
+    // TODO: insert new voting record for the user
+    poll.vote(dummy.id, dummy.option, (result, db) => {
+        res.send(result)
+        db.close()
+    })
 })
 
 module.exports = router
