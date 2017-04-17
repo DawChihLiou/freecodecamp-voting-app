@@ -24,6 +24,9 @@ user.create = (data, cb) => {
     })
 }
 
+/**
+ * Add poll record to given user if not exists 
+ */
 user.addPoll = (data, cb) => {
    mlab.connect(mongo, MONGO_URL, db => {
         db.collection('users').update(
