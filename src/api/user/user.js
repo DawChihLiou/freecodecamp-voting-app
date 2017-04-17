@@ -40,9 +40,19 @@ user.addPoll = (data, cb) => {
     }) 
 }
 
+/**
+ * Vote given poll of given user
+ */ 
 user.votePoll = (data, cb) => {
     mlab.connect(mongo, MONGO_URL, db => {
-        
+        db.collection('users').update(
+            {userId: data.userId, "polls.poll": data.poll},
+            {$set: {"polls.$.voted": data.voted}},
+            (err, doc) => {
+                if (err) console.error(`Unable to vote poll ${data.poll} for user ${data.userId}. ${err}`)
+                cb(doc, db)
+            }
+        )
     })
 }
 

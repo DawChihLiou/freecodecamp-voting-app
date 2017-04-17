@@ -43,7 +43,7 @@ router.post('/poll', (req, res) => {
 /**
  * Update poll record as voted for given user
  */
-router.put('/poll', (req, res) => {
+router.post('/poll/vote', (req, res) => {
     // TODO: get user input data
     const dummy = {
         userId: 'lskdjlk1j23r23ladsjjd',
