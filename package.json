@@ -25,7 +25,10 @@
   "homepage": "https://github.com/DawChihLiou/freecodecamp-voting-app#readme",
   "dependencies": {
     "express": "^4.15.2",
-    "mongodb": "^2.2.25"
+    "express-session": "^1.15.2",
+    "mongodb": "^2.2.25",
+    "passport": "^0.3.2",
+    "passport-twitter": "^1.0.4"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
