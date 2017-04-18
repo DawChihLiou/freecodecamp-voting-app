@@ -7,8 +7,6 @@ const router = express.Router()
  * List all/my polls
  */ 
 router.get('/list/:show', (req, res) => {
-    
-    
     // TODO: user id
     const userId = undefined
     
