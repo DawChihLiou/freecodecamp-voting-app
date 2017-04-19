@@ -10,7 +10,7 @@ const user = {}
 /**
  * Create user if not exists
  */ 
-user.create = (data, cb) => {
+user.findOrCreate = (data, cb) => {
     mlab.connect(mongo, MONGO_URL, db => {
         db.collection('users').findAndModify(
             {userId: data.userId},

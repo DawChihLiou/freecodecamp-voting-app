@@ -15,7 +15,7 @@ router.post('/new', (req, res) => {
         polls: []
     }
     
-    user.create(dummy, (doc, db) => {
+    user.findOrCreate(dummy, (doc, db) => {
         res.send(doc)
         db.close()
     })
