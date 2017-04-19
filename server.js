@@ -13,6 +13,9 @@ const mongo = mongodb.MongoClient
 
 const PORT = process.env.PORT || 8080
 
+app.set('views', `${__dirname}/src/index`)
+app.set('view engine', 'pug')
+
 app.use(express.static(`${__dirname}/dist`))
 
 // session configuration
@@ -26,6 +29,7 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
+// routes
 app.use('/', index)
 app.use('/api/poll', poll)
 app.use('/api/user', user)

@@ -9,7 +9,7 @@ router.get('/twitter/callback',
     passportTwitter.authenticate('twitter', {failureRedirect: '/fail'}),
     (req, res) => {
         // Successful authentication
-        res.redirect('/')
+        res.redirect(`/${req.user.value._id}`)
 })
 
 router.get('/fail', (req, res) => {
