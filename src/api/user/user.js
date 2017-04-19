@@ -9,6 +9,11 @@ const user = {}
 
 /**
  * Create user if not exists
+ * @param {object} data
+ *      userId: {string}
+ *      username: {string}
+ *      displayName: {string}
+ *      polls: []
  */ 
 user.findOrCreate = (data, cb) => {
     mlab.connect(mongo, MONGO_URL, db => {
@@ -26,6 +31,12 @@ user.findOrCreate = (data, cb) => {
 
 /**
  * Add poll record to given user if not exists 
+ * @param {object} data
+ *      userId: {string}
+ *      payload: {
+ *          poll: {string}
+ *          voted: false
+ *      }
  */
 user.addPoll = (data, cb) => {
    mlab.connect(mongo, MONGO_URL, db => {
@@ -42,6 +53,10 @@ user.addPoll = (data, cb) => {
 
 /**
  * Vote given poll of given user
+ * @param {object} data
+ *      userId: {string}
+ *      poll: {string}
+ *      voted: true
  */ 
 user.votePoll = (data, cb) => {
     mlab.connect(mongo, MONGO_URL, db => {
